@@ -1,0 +1,80 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  z-index: 1000;
+}
+
+.sukuna {
+  width: 400px;
+  height: auto;
+  z-index: 2;
+}
+
+.shrine {
+  width: 100%;
+  min-height: 100vh;
+  height: auto;
+  position: absolute;
+  top: 0;
+}
+
+.text {
+  position: absolute;
+  bottom: 1%; /* Positions text above the bottom edge */
+  color: white;
+  font-size: 20px;
+  background-color: rgba(0, 0, 0, 0.25);
+  padding: 10px;
+  border-radius: 10px;
+  z-index: 2;
+}
+
+.ripple {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.55) 0%,
+    transparent 30%
+  );
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.ripple1 {
+  animation: ripple 2s ease-out 2s forwards;
+}
+
+.ripple2 {
+  animation: ripple 2.5s ease-out 2.1s forwards;
+}
+
+.ripple3 {
+  animation: ripple 3s ease-out 2.2s forwards;
+}
+
+.ripple4 {
+  animation: ripple 3.5s ease-out 2.3s forwards;
+}
+@keyframes ripple {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    width: 300vw;
+    height: 300vw;
+    opacity: 0;
+  }
+}
