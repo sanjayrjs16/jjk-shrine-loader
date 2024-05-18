@@ -6,7 +6,7 @@ import "./ShrineFullScreenLoader.css";
 const overlayVariants = {
   hidden: { opacity: 1 },
   visible: { opacity: 1 },
-  exit: { opacity: 0, transition: { delay: 7 } }, // Fades to black at 0:07
+  exit: { opacity: 0, transition: { delay: 1 } }, // Fades to black at 0:07
 };
 
 const sukunaVariants = {
@@ -28,6 +28,7 @@ function ShrineFullScreenLoader({ setLoading }) {
 
   const [showRipple, setShowRipple] = useState(false);
 
+  const [showAnimation, setShowAnimation] = useState(true);
   useEffect(() => {
     if (audioLoaded) {
       setShowRipple(true);
@@ -40,7 +41,8 @@ function ShrineFullScreenLoader({ setLoading }) {
       setTimeout(() => setDisplayText("Domain expansion"), 1000); // Changes text at 0:01
       setTimeout(() => setDisplayText("Malovalent shrine!"), 4000); // Changes text at 0:04
       setTimeout(() => setDisplayText(""), 6000);
-      setTimeout(() => setLoading(false), 9000); // Unmounts component after 8 seconds
+      setTimeout(() => setShowAnimation(false), 8000); // Unmounts component after 8 seconds
+      setTimeout(() => setLoading(false), 9000); // Unmounts component after 9 seconds
     }
   }, [audioLoaded]);
 
@@ -57,48 +59,50 @@ function ShrineFullScreenLoader({ setLoading }) {
 
   return (
     <AnimatePresence>
-      {
-        <motion.div
-          className="overlay"
-          variants={overlayVariants}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-        >
-          <audio
-            ref={audioRef}
-            src={shrine_audio}
-            onLoadedData={() => setAudioLoaded(true)}
-          />
-          <motion.img
-            src="/sukuna.png"
-            className="sukuna"
-            variants={sukunaVariants}
+      {showAnimation && (
+        <>
+          <motion.div
+            className="overlay"
+            variants={overlayVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
-          />
-          <motion.img
-            src="/shrine.jpg"
-            className="shrine"
-            variants={shrineVariants}
-          />
-          <>
-            {showRipple && (
-              <>
-                {" "}
-                <div className="ripple ripple1"></div>
-                <div className="ripple ripple2"></div>
-                <div className="ripple ripple3"></div>
-                <div className="ripple ripple4"></div>
-              </>
-            )}
-          </>
-          <motion.div className="text" variants={overlayVariants}>
-            {displayText}
+          >
+            <audio
+              ref={audioRef}
+              src={shrine_audio}
+              onLoadedData={() => setAudioLoaded(true)}
+            />
+            <motion.img
+              src="/sukuna.png"
+              className="sukuna"
+              variants={sukunaVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            />
+            <motion.img
+              src="/shrine.jpg"
+              className="shrine"
+              variants={shrineVariants}
+            />
+            <>
+              {showRipple && (
+                <>
+                  {" "}
+                  <div className="ripple ripple1"></div>
+                  <div className="ripple ripple2"></div>
+                  <div className="ripple ripple3"></div>
+                  <div className="ripple ripple4"></div>
+                </>
+              )}
+            </>
+            <motion.div className="text" variants={overlayVariants}>
+              {displayText}
+            </motion.div>
           </motion.div>
-        </motion.div>
-      }
+        </>
+      )}
     </AnimatePresence>
   );
 }
