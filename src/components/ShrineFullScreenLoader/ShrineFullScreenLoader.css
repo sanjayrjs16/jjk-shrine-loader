@@ -9,7 +9,7 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  z-index: 1000;
+  /* z-index: 1000; */
 }
 
 .sukuna {

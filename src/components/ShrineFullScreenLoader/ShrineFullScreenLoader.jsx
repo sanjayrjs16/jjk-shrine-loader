@@ -57,48 +57,46 @@ function ShrineFullScreenLoader({ setLoading }) {
 
   return (
     <AnimatePresence>
-      {
-        <motion.div
-          className="overlay"
-          variants={overlayVariants}
+      <motion.div
+        className="overlay"
+        variants={overlayVariants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+      >
+        <audio
+          ref={audioRef}
+          src={shrine_audio}
+          onLoadedData={() => setTimeout(setAudioLoaded(true), 9000)}
+        />
+        <motion.img
+          src="/sukuna.png"
+          className="sukuna"
+          variants={sukunaVariants}
           initial="hidden"
           animate="visible"
           exit="exit"
-        >
-          <audio
-            ref={audioRef}
-            src={shrine_audio}
-            onLoadedData={() => setAudioLoaded(true)}
-          />
-          <motion.img
-            src="/sukuna.png"
-            className="sukuna"
-            variants={sukunaVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-          />
-          <motion.img
-            src="/shrine.jpg"
-            className="shrine"
-            variants={shrineVariants}
-          />
-          <>
-            {showRipple && (
-              <>
-                {" "}
-                <div className="ripple ripple1"></div>
-                <div className="ripple ripple2"></div>
-                <div className="ripple ripple3"></div>
-                <div className="ripple ripple4"></div>
-              </>
-            )}
-          </>
-          <motion.div className="text" variants={overlayVariants}>
-            {displayText}
-          </motion.div>
+        />
+        <motion.img
+          src="/shrine.jpg"
+          className="shrine"
+          variants={shrineVariants}
+        />
+        <>
+          {showRipple && (
+            <>
+              {" "}
+              <div className="ripple ripple1"></div>
+              <div className="ripple ripple2"></div>
+              <div className="ripple ripple3"></div>
+              <div className="ripple ripple4"></div>
+            </>
+          )}
+        </>
+        <motion.div className="text" variants={overlayVariants}>
+          {displayText}
         </motion.div>
-      }
+      </motion.div>
     </AnimatePresence>
   );
 }
